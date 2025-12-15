@@ -9,7 +9,7 @@ jobs:
   AssumeRoleAndCallIdentity:
     runs-on: ubuntu-latest
 
-    default:
+    defaults:
       run:
         working-directory: ./docker
     
