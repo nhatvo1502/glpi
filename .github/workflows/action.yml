@@ -33,7 +33,7 @@ jobs:
           aws s3 ls
 
       - name: create tfstate bucket
-        run: aws s3 mb ${{ secret.S3_TFSTATE}}
+        run: aws s3 mb ${{ secrets.S3_TFSTATE }}
 
       - name: Install Terraform
         run: hashicorp/setup-terraform@v3
