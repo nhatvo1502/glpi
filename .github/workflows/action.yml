@@ -17,7 +17,7 @@ jobs:
       - name: Git clone the repo
         uses: actions/checkout@v4
       
-      - name: Configure AWS creds
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::566027688242:role/GitHubOIDCRole
