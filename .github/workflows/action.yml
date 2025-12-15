@@ -12,6 +12,7 @@ permissions:
 jobs:
   AssumeRoleAndCallIdentity:
     runs-on: ubuntu-latest
+    environment: dev
 
     defaults:
       run:
@@ -30,3 +31,9 @@ jobs:
       - name: Sts GetCallerIdentity
         run: |
           aws s3 ls
+
+      - name: create tfstate bucket
+        run: aws s3 mb ${{ secret.S3_TFSTATE}}
+
+      - name: Install Terraform
+        run: hashicorp/setup-terraform@v3
