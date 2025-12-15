@@ -1,0 +1,27 @@
+name: Hosting GLPI on AWS
+
+on:
+  push:
+    - main
+
+jobs:
+  AssumeRoleAndCallIdentity:
+    runs-on: ubuntu-latest
+
+    default:
+      run:
+        working-directory: ./docker
+    
+    steps:
+      - name: Git clone the repo
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS creds
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::566027688242:role/github-assumerole-admin-test
+          aws-region: us-east-1
+      
+      - name: Sts GetCallerIdentity
+        run: |
+          aws sts get-caller-identity
