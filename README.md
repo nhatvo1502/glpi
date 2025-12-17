@@ -1,0 +1,1 @@
+Hosting GLPI on AWS
