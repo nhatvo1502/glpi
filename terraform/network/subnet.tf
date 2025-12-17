@@ -1,4 +1,4 @@
-resource "aws_subnet" "glpi_vpc_subnet" {
+resource "aws_subnet" "glpi_subnet" {
     vpc_id = aws_vpc.glpi_vpc.id
     cidr_block = "10.0.0.0/24"
 

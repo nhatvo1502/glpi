@@ -2,3 +2,6 @@ output "private_key" {
   value     = tls_private_key.local_private_key.private_key_pem
   sensitive = true
 }
+output "public_ip" {
+    value = aws_instance.glpi.public_ip
+}
