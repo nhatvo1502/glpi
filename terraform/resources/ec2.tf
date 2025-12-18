@@ -10,36 +10,7 @@ resource "aws_instance" "glpi" {
         volume_type = var.volume_type
     }
 
-    user_data = <<-EOF
-        #!/bin/bash
-        sudo yum update -y
-        sudo yum install -y docker git
-        sudo service docker start
-
-        sudo usermod -a -G docker ec2-user
-
-        newgrp docker
-
-        sudo mkdir -p /usr/libexec/docker/cli-plugins/
-        sudo curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-$(uname -m) -o /usr/libexec/docker/cli-plugins/docker-compose
-        sudo chmod +x /usr/libexec/docker/cli-plugins/docker-compose
-
-        sudo mkdir -p /opt/glpi
-        sudo chown -R ec2-user:ec2-user /opt/glpi
-        
-        cd /opt/glpi
-
-        git init
-        git remote add origin https://github.com/nhatvo1502/glpi.git
-        git sparse-checkout init --cone
-        git sparse-checkout set docker
-
-        git pull origin main
-
-        cd /opt/glpi/docker
-
-        sudo docker compose up
-    EOF
+    user_data = "${file("${path.module}/user-data.sh")}"
 
     tags = {
         Name = "GLPI"
