@@ -11,7 +11,7 @@ variable "ec2_instance_name" {
     type = string
 }
 
-variable "iam" {
+variable "ami" {
     default = "ami-0623300d1b7caee89"
     type = string
 }
