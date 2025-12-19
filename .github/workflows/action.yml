@@ -33,15 +33,15 @@ jobs:
           aws s3 ls
 
       - name: create tfstate bucket
-        run: aws s3 mb s3://${{ env.TFBUCKET }}
+        run: aws s3 mb s3://${{ vars.TFBUCKET }}
       
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
       
       - name: Terraform Init
         uses: terraform init \
-          -backend-config="bucket=${{ env.TFBUCKET }}" \
-          -backend-config="region=${{ env.REGION }}"
+          -backend-config="bucket=${{ vars.TFBUCKET }}" \
+          -backend-config="region=${{ vars.REGION }}"
           -backend-config="key=terraform.tfstate"
       
       - name: Terraform Validate
