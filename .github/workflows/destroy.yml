@@ -3,7 +3,7 @@ name: Destroy
 on:
   workflow_dispatch:
 
-permission:
+permissions:
   id-token: write
   contents: read
 
@@ -29,11 +29,14 @@ jobs:
           uses: hashicorp/setup-terraform@v3
         
         - name: Terraform Init
-          working-directory: ./terraform
           run: |
             terraform init \
               -backend-config="bucket=${{ vars.TFBUCKET }}" \
               -backend-config="region=${{ vars.REGION }}" \
               -backend-config="key=terraform.tfstate"
         
+        - name: Terraform Validate
+          run: terraform validate
         
+        - name: Terraform Destroy
+          run: terraform destroy --auto-approve
