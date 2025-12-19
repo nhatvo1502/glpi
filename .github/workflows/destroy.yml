@@ -41,3 +41,8 @@ jobs:
       
       - name: Terraform Destroy
         run: terraform destroy --auto-approve
+
+      - name: Empty and RM s3 bucket
+        run: |
+          aws s3 rm s3://${{ vars.TFBUCKET  }} --recursive
+          aws s3 rb s3://${{ vars.TFBUCKET  }}
