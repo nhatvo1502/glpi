@@ -1,4 +1,4 @@
-name: Hosting GLPI on AWS
+name: Spin Up
 
 on:
   workflow_dispatch:
@@ -8,13 +8,13 @@ permissions:
   contents: read 
 
 jobs:
-  SpinUp-GLPI:
+  spin-up:
     runs-on: ubuntu-latest
     environment: dev
 
     defaults:
       run:
-        working-directory: ./docker
+        working-directory: ./terraform
     
     steps:
       - name: Git clone the repo
@@ -34,7 +34,6 @@ jobs:
         uses: hashicorp/setup-terraform@v3
       
       - name: Terraform Init
-        working-directory: ./terraform
         run: |
           terraform init \
             -backend-config="bucket=${{ vars.TFBUCKET }}" \
@@ -42,11 +41,7 @@ jobs:
             -backend-config="key=terraform.tfstate"
       
       - name: Terraform Validate
-        working-directory: ./terraform
         run: terraform validate
 
       - name: Terraform Apply
-        working-directory: ./terraform
         run: terraform apply --auto-approve
-
-      # run terraform
