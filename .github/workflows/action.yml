@@ -49,4 +49,4 @@ jobs:
       - name: cp key to s3
         if: ${{ vars.KEYNAME != '' }} 
         run: |
-          aws s3 cp ./glpi-key.pem s3://${{. vars.TFBUCKET }}/glpi-key.pem
+          aws s3 cp ./glpi-key.pem s3://${{ vars.TFBUCKET }}/glpi-key.pem
