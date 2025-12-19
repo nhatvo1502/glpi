@@ -1,9 +1,7 @@
 name: Hosting GLPI on AWS
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 permissions:
   id-token: write 
@@ -27,14 +25,11 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::566027688242:role/GitHubOIDCRole
           aws-region: ${{ vars.REGION}}
-      
-      - name: Sts GetCallerIdentity
-        run: |
-          aws s3 ls
 
       - name: create tfstate bucket
         run: aws s3 mb s3://${{ vars.TFBUCKET }}
-      
+        continue-on-error: true
+
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
       
