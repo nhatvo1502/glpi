@@ -39,6 +39,7 @@ jobs:
         uses: hashicorp/setup-terraform@v3
       
       - name: Terraform Init
+        working-directory: ./terraform
         run: |
           terraform init \
             -backend-config="bucket=${{ vars.TFBUCKET }}" \
@@ -46,9 +47,11 @@ jobs:
             -backend-config="key=terraform.tfstate"
       
       - name: Terraform Validate
+        working-directory: ./terraform
         run: terraform validate
 
       - name: Terraform Apply
+        working-directory: ./terraform
         run: terraform apply --auto-approve
 
       # run terraform
