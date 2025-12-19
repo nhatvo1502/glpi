@@ -10,7 +10,7 @@ permissions:
   contents: read 
 
 jobs:
-  AssumeRoleAndCallIdentity:
+  SpinUp-GLPI:
     runs-on: ubuntu-latest
     environment: dev
 
