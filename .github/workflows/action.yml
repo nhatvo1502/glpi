@@ -46,6 +46,6 @@ jobs:
       - name: Terraform Apply
         run: terraform apply --auto-approve
 
-      - if: ${{ var.KEYNAME }} != ""
-        name: cp key to s3
-        run: cp ./glpi-key.pem s3://${{. var.TFBUCKET }}/glpi-key.pem
+      - name: cp key to s3
+        if: ${{ vars.KEYNAME != "" }} 
+        run: aws s3 cp ./glpi-key.pem s3://${{. vars.TFBUCKET }}/glpi-key.pem
