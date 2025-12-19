@@ -15,28 +15,28 @@ jobs:
       run:
         working-directory: ./terraform
 
-      steps:
-        - name: Git clone repo
-          uses: actions/checkout@v4
-        
-        - name: Configure AWS Credentials
-          uses: aws-actions/configure-aws-credentials@v2
-          with:
-            role-to-assume: arn:aws:iam::566027688242:role/GitHubOIDCRole
-            aws-region: ${{ vars.REGION}}
+    steps:
+      - name: Git clone repo
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::566027688242:role/GitHubOIDCRole
+          aws-region: ${{ vars.REGION}}
 
-        - name: Install Terraform
-          uses: hashicorp/setup-terraform@v3
-        
-        - name: Terraform Init
-          run: |
-            terraform init \
-              -backend-config="bucket=${{ vars.TFBUCKET }}" \
-              -backend-config="region=${{ vars.REGION }}" \
-              -backend-config="key=terraform.tfstate"
-        
-        - name: Terraform Validate
-          run: terraform validate
-        
-        - name: Terraform Destroy
-          run: terraform destroy --auto-approve
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+      
+      - name: Terraform Init
+        run: |
+          terraform init \
+            -backend-config="bucket=${{ vars.TFBUCKET }}" \
+            -backend-config="region=${{ vars.REGION }}" \
+            -backend-config="key=terraform.tfstate"
+      
+      - name: Terraform Validate
+        run: terraform validate
+      
+      - name: Terraform Destroy
+        run: terraform destroy --auto-approve
