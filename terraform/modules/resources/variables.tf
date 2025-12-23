@@ -30,3 +30,12 @@ variable "volume_type" {
     default = "gp3"
     type = string
 }
+
+variable "key_name" {
+    type = string
+    description = "Use existing EC2 Key Pair. If null, TF create a new one"
+}
+
+locals {
+    use_existing_key = var.key_name != null
+}
