@@ -1,1 +1,1 @@
-Hosting GLPI on AWS
+Hosting GLPI on AWS using Terraform and Github Action
